@@ -1,0 +1,203 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+} /* фон сайта и правила для растягивания на всю высоту окна */
+
+.site_footer {
+    margin-top: auto;           
+    text-align: center;         
+    padding: 20px 15px;
+    color: #64748b;             
+    font-size: 14px;
+    border-top: 1px solid #e2e8f0;
+} /* оформление самой главной надписи внизу страницы */
+
+.site_footer p {
+    margin: 4px 0;
+} /* отступ между строками с информацией о сайте */
+
+h1 {
+  color: #1e3a8a;
+  border-bottom: 5px solid;
+  text-align: center;
+  padding-bottom: 10px;
+  border-image: linear-gradient(to right, #f4f4f9, #1e3a8a, #f4f4f9) 1;
+} /* большая надпись над блоками заданий */
+
+p {
+  color: #666;
+  line-height: 1.5;
+} /* для серого текста*/
+
+.task_1 {
+    background: #d9d7d7be;
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+
+} /* оформление блока задания 1, апотом 2*/
+
+.polynomial {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+    font-size: 18px;
+    flex-wrap: wrap; /* чтобы на узких экранах красиво переносилось */
+} /* для красивой визуализации многочленов */
+
+.poly-name {
+    font-weight: 1000;
+    color: #1e3a8a;
+    margin-right: 5px;
+} /* для синего текста а(х) и п(х)*/
+
+.polynomial input {
+    width: 50px;
+    padding: 8px 4px;
+    text-align: center;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 16px;
+} /* квадратики для заполнения значений */
+
+.hint_text {
+    color: #475569;
+    font-size: 14px;
+    margin: 20px auto 12px auto;
+    line-height: 0;
+} /* настройка текста для подсказок */
+
+
+.polynomial input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+} /* очень красивая подсветка при наведении курсора на поле значения х */
+
+.button_task_1 {
+    display: block;
+    background: #1e3a8a;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 20px auto 0;
+} /* оформление кнопки */
+
+.button_task_1:hover {
+    background: #cb6908;
+} /* при наведении кнопка будет загораться цветом */
+
+.result {
+    background: #bdbcbcbe;
+    margin-top: 30px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    border: 2px solid #cb6908;
+} /* оформление блока с ответами задания 1 */
+
+.result_1 {
+    margin-bottom: 12px;
+    font-size: 17px;
+    color: #1e293b;
+} /* оформление поля ответа */
+
+.result_label {
+    font-weight: bold;
+    color: #1e3a8a;
+    margin-right: 8px;
+} /* оформление текста (там нод, нок, коэффициенты) */
+
+.result-value {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #0f172a;
+} /* оформление значений ответа задания 1 (возможно и 2) */
+
+.bezout_line {
+    margin-top: 6px;
+    padding-left: 0px;
+    line-height: 1.6;
+} /* пусть будет, я не помню, где его использовал */
+
+h3 {
+  color: #1e3a8a;
+  border-bottom: 2px solid #cb6908;
+  text-align: center;
+  padding-bottom: 5px;
+  font-size: 21px;
+  margin-top: 0;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  font-weight: 800;
+  margin-left: -20px;
+  margin-right: -20px;
+
+} /* наипрекраснейшее оформление надписи ответа с прямой линией */
+
+h4 {
+    color: #1e3a8a;
+    text-align: center;
+    font-size: 23px;
+    padding-bottom: 5px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+} /* нигде не использовал, но пусть будет */
+
+.select_tasks {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    max-width: 800px;
+    margin: 25px auto;
+    flex-wrap: wrap;
+} /* расположение кнопок посередине */
+
+.table {
+    flex: 1;
+    min-width: 280px;
+    background: #ffffff;
+    border: 2px solid #cbd5e1;
+    border-radius: 12px;
+    padding: 18px 20px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+} /* стилизация двух кнопок для выбора заданий */
+
+.table:hover {
+    border-color: #2563eb;
+    transform: translateY(-2px);
+}  /* для движения кнопки вверх при наведении */
+
+.table.active {
+    border-color: #1e3a8a;
+    background-color: #eff6ff;
+} /* подсвечивание выбранной кнопки (задангия) */
+
+.table h3 {
+    margin: 0 0 8px 0;
+    color: #1e3a8a;
+    font-size: 19px;
+} /* это я не использовал */
+
+.table p {
+    margin: 0;
+    color: #475569;
+    font-size: 14px; 
+} /* для серых надписей внутри кнопки */
+
+#task_1_block, #task_2_block {
+    display: none;
+} /* отключение видимости кнопок до тех пор, пока одна из них не будет выбрана*/

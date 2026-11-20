@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Автоматизация алгоритма</title>
+    <link rel="stylesheet" href="group_css.css"> <!-- соединение с css -->
+    <script src="js_for_website.js" defer></script> <!-- соединение со скриптом JS -->
+  </head>
+  <body>
+    <h1>Автоматизированный алгоритм Евклида</h1>
+
+    <div class="select_tasks"> <!-- блок для выбора заданий (их две) -->
+        <button class="table" onclick="openTask(1)" id="tab_1"> <!-- первая кнопка -->
+        <h4>Задание 1</h4>
+        <p>НОД, НОК и линейное представление многочленов</p>
+        </button>
+
+        <button class="table" onclick="openTask(2)" id="tab_2"> <!-- вторая кнопка -->
+          <h4>Задание 2</h4>
+          <p>НОД и коэффициенты Безу в поле &#8484;<sub>p</sub></p>
+        </button>
+      </div>
+
+    <div class="task_1" id="task_1_block"> <!-- блок с интерфейсом задания 1 -->
+      <h2>Задание 1. Вычисление НОД, НОК и линейного представления многочленов</h2>
+
+      <div class="polynomial" id="f1_inputs"> <!-- строка с вводом многочлена -->
+        <span class="poly-name">f(x) =</span>
+        <input type="number" placeholder="0"> <span>x<sup>5</sup> +</span>
+        <input type="number" placeholder="0"> <span>x<sup>4</sup> +</span>
+        <input type="number" placeholder="0"> <span>x<sup>3</sup> +</span>
+        <input type="number" placeholder="0"> <span>x<sup>2</sup> +</span>
+        <input type="number" placeholder="0"> <span>x +</span>
+        <input type="number" placeholder="0">
+      </div>
+
+      <div class="polynomial" id="g1_inputs"> <!-- строка с вводом многочлена -->
+        <span class="poly-name">g(x) =</span>
+        <input type="number" placeholder="0"> <span>x<sup>5</sup> +</span>
+        <input type="number" placeholder="0"> <span>x<sup>4</sup> +</span>
+        <input type="number" placeholder="0"> <span>x<sup>3</sup> +</span>
+        <input type="number" placeholder="0"> <span>x<sup>2</sup> +</span>
+        <input type="number" placeholder="0"> <span>x +</span>
+        <input type="number" placeholder="0">
+      </div>
+
+      <p class="hint_text">Важно!!! Убедись в правильности ввода значений с задания. Не поленись и перепроверь значения.</p>
+      <p class="hint_text">Пустые поля автоматически считаются нулями.</p>
+
+      <button class="button_task_1" id="button_1">Вычислить</button> <!-- кнопка для нажатия и вычисления -->
+
+      <div class="result"> <!-- блок для вывода ответа задания 1 -->
+        <h3>Ответ</h3>
+
+        <div class="result_1"> <!-- строка с НОД -->
+          <span class="result_label">НОД(f(x), g(x)) =</span>
+          <span class="result-value" id="gcd_res"> </span> <!-- хранение переменной для js -->
+        </div>
+    
+        <div class="result_1"> <!-- строка с НОК -->
+          <span class="result_label">НОК(f(x), g(x)) =</span>
+          <span class="result-value" id="lcm_res"> </span> <!-- хранение переменной для js -->
+        </div>
+    
+        <div class="result_1"> <!-- строка с надписью коэф. безу -->
+          <span class="result_label">Линейное представление (коэффициенты Безу):</span>
+
+          <div style="margin-top: 8px;"> <!-- вывод у(х) -->
+            <span class="result_label">u(x) =</span>
+            <span class="result-value" id="u_res"></span> <!-- хранение переменной для js -->
+          </div>
+    
+          <div style="margin-top: 6px;"> <!-- вывод в(х) -->
+            <span class="result_label">v(x) =</span>
+            <span class="result-value" id="v_res"></span> <!-- хранение переменной для js -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="task_1" id="task_2_block"> <!-- блок с интерфейсом задания 2 -->
+      <h2>Задание 2. Вычисление НОД и коэффициентов Безу многочленов в полях вычетов</h2>
+
+      <div class="polynomial"> <!-- поле для ввода числа размерности поля -->
+        <span class="poly-name">Модуль поля p =</span>
+        <input type="number" id="field_p" placeholder="2" min="2"> <!-- хранение переменной для js -->
+      </div>
+
+      <div class="polynomial" id="f2_inputs"> <!-- строка с вводом многочлена -->
+        <span class="poly-name">f(x) =</span>
+        <input type="number" placeholder="0"> <span>x<sup>5</sup> +</span>
+        <input type="number" placeholder="0"> <span>x<sup>4</sup> +</span>
+        <input type="number" placeholder="0"> <span>x<sup>3</sup> +</span>
+        <input type="number" placeholder="0"> <span>x<sup>2</sup> +</span>
+        <input type="number" placeholder="0"> <span>x +</span>
+        <input type="number" placeholder="0">
+      </div>
+
+      <div class="polynomial" id="g2_inputs"> <!-- строка с вводом многочлена -->
+        <span class="poly-name">g(x) =</span>
+        <input type="number" placeholder="0"> <span>x<sup>5</sup> +</span>
+        <input type="number" placeholder="0"> <span>x<sup>4</sup> +</span>
+        <input type="number" placeholder="0"> <span>x<sup>3</sup> +</span>
+        <input type="number" placeholder="0"> <span>x<sup>2</sup> +</span>
+        <input type="number" placeholder="0"> <span>x +</span>
+        <input type="number" placeholder="0">
+      </div>
+
+      <p class="hint_text">Важно!!! Убедись в правильности ввода значений с задания. Не поленись и перепроверь значения.</p>
+      <p class="hint_text">Пустые поля автоматически считаются нулями.</p>
+
+      <button class="button_task_1">Вычислить</button> <!-- кнопка для нажатия и вычисления -->
+
+      <div class="result"> <!-- блок для вывода ответа задания 1 -->
+        <h3>Ответ в поле &#8484;<sub id="p-display">p</sub></h3>
+
+        <div class="result_1"> <!-- строка с НОД -->
+          <span class="result_label">НОД(f(x), g(x)) =</span>
+          <span class="result-value" id="gcd_res"></span> <!-- хранение переменной для js -->
+        </div>
+    
+        <div class="result_1"> <!-- строки с коэф. безу -->
+          <span class="result_label">Коэффициенты Безу:</span>
+
+          <div style="margin-top: 8px;">
+            <span class="result_label">u(x) =</span>
+            <span class="result-value" id="u_res"></span> <!-- хранение переменной для js -->
+          </div>
+    
+          <div style="margin-top: 6px;">
+            <span class="result_label">v(x) =</span>
+            <span class="result-value" id="v_res"></span> <!-- хранение переменной для js -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site_footer"> <!-- для приватизации сайта и информации, кто делал -->
+      <p>Данный сайт был разработан для реферата по дискретной математике.</p>
+      <p>Участники реферата — учащиеся группы «ИСиТ25-01Б»:</p>
+      <p>Харитонов Данил Евгеньевич и Перфилова Ульяна Юрьевна.</p>
+    </footer>
+
+  </body>
+</html>
