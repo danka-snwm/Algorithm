@@ -121,7 +121,7 @@ p {
 .result-value {
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
-    color: #0f172a;
+    color: #1e3a8a;
 } /* оформление значений ответа задания 1 (возможно и 2) */
 
 .bezout_line {
@@ -200,4 +200,5 @@ h4 {
 
 #task_1_block, #task_2_block {
     display: none;
+
 } /* отключение видимости кнопок до тех пор, пока одна из них не будет выбрана*/
