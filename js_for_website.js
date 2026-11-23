@@ -206,3 +206,153 @@ document.getElementById("button_1").addEventListener("click", function () {
     document.querySelector("#task_1_block #u_res").innerHTML = formatPoly(u);
     document.querySelector("#task_1_block #v_res").innerHTML = formatPoly(v);
 });
+
+// ЗАДАНИЕ 2
+
+// Корректный остаток от деления в JS (для отрицательных чисел, как % в Python)
+function pyMod(n, p) {
+    return ((n % p) + p) % p;
+}
+
+// Очистка нулей слева и приведение коэффициентов по модулю p
+function not_zero_mod(list, p) {
+    let list_2 = list.map(i => pyMod(i, p));
+    while (list_2.length > 1 && list_2.at(0) === 0) {
+        list_2.shift();
+    }
+    return list_2;
+}
+
+// Функция, проверяющая, является ли число p простым
+function is_pioly(p) {
+    if (!Number.isInteger(p) || p < 2) {
+        return false;
+    }
+    for (let i = 2; i < p; i++) {
+        if (p % i === 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// Функция для нахождения обратного элемента
+function invers(a, p) {
+    a = pyMod(a, p);
+    for (let i = 1; i < p; i++) {
+        if (pyMod(a * i, p) === 1) {
+            return i;
+        }
+    }
+    return null;
+}
+
+// Вычитание коэффициентов многочленов в Z_p
+function poly_minus_mod(f, g, p) {
+    let max_len = Math.max(f.length, g.length);
+
+    let new_f = new Array(max_len - f.length).fill(0).concat(f);
+    let new_g = new Array(max_len - g.length).fill(0).concat(g);
+
+    let result_poly_minus = Array.of();
+    for (let i = 0; i < max_len; i++) {
+        result_poly_minus.push(pyMod(new_f.at(i) - new_g.at(i), p));
+    }
+
+    return not_zero_mod(result_poly_minus, p);
+}
+
+// Умножение многочленов в Z_p
+function prod_poly_mod(f, g, p) {
+    let result_prod = new Array((f.length + g.length) - 1).fill(0);
+
+    for (let i = 0; i < f.length; i++) {
+        for (let j = 0; j < g.length; j++) {
+            result_prod[i + j] = pyMod(result_prod.at(i + j) + f.at(i) * g.at(j), p);
+        }
+    }
+
+    return not_zero_mod(result_prod, p);
+}
+
+// Деление с остатком в Z_p (возвращает остаток r и частное q)
+function copy_func_mod(f, g, p) {
+    let r = not_zero_mod([...f], p);
+    g = not_zero_mod([...g], p);
+    let q = new Array(Math.max(1, r.length - g.length + 1)).fill(0);
+
+    let inv_g = invers(g.at(0), p); // обратный элемент к старшему коэф.
+
+    while (r.length >= g.length && !(r.length === 1 && r.at(0) === 0)) {
+        let coef = pyMod(r.at(0) * inv_g, p);
+        let position = q.length - 1 - (r.length - g.length);
+        q[position] = coef;
+
+        for (let j = 0; j < g.length; j++) {
+            r[j] = pyMod(r.at(j) - coef * g.at(j), p);
+        }
+
+        r = not_zero_mod(r, p);
+    }
+
+    return { r: r, q: not_zero_mod(q, p) };
+}
+
+// Главная часть вычисления НОД и коэффициентов Безу в Z_p
+function nod_mod(f, g, p) {
+    f = not_zero_mod([...f], p);
+    g = not_zero_mod([...g], p);
+
+    let u_0 = Array.of(1);
+    let u_1 = Array.of(0);
+    let v_0 = Array.of(0);
+    let v_1 = Array.of(1);
+
+    while (!(g.length === 1 && g.at(0) === 0)) {
+        let { r, q } = copy_func_mod(f, g, p);
+        f = g;
+        g = r;
+
+        let next_u = poly_minus_mod(u_0, prod_poly_mod(q, u_1, p), p);
+        u_0 = u_1;
+        u_1 = next_u;
+
+        let next_v = poly_minus_mod(v_0, prod_poly_mod(q, v_1, p), p);
+        v_0 = v_1;
+        v_1 = next_v;
+    }
+
+    let norm = f.at(0); // нормирование НОД
+    if (norm !== 0) {
+        let invers_mod = invers(norm, p);
+        f = f.map(i => pyMod(i * invers_mod, p));
+        u_0 = u_0.map(z => pyMod(z * invers_mod, p));
+        v_0 = v_0.map(t => pyMod(t * invers_mod, p));
+    }
+
+    return { res_nod: f, u: u_0, v: v_0 };
+}
+
+// Связь с HTML для Задания 2
+document.getElementById("button_2").addEventListener("click", function () {
+    let pole = Number(document.getElementById("field_p").value);
+    let f_x = Array.from(document.querySelectorAll("#f2_inputs input")).map(el => Number(el.value) || 0);
+    let g_x = Array.from(document.querySelectorAll("#g2_inputs input")).map(el => Number(el.value) || 0);
+
+    if (!is_pioly(pole)) {
+        alert("Модуль поля p должен быть простым числом!");
+        return;
+    }
+
+    if (f_x.every(x => x === 0) || g_x.every(x => x === 0)) {
+        return; // защита от пустого ввода
+    }
+
+    let { res_nod, u, v } = nod_mod(not_zero_mod([...f_x], pole), g_x, pole);
+
+    document.querySelector("#task_2_block #gcd_2_res").innerHTML = formatPoly(res_nod);
+    document.querySelector("#task_2_block #u_2_res").innerHTML = formatPoly(u);
+    document.querySelector("#task_2_block #v_2_res").innerHTML = formatPoly(v);
+});
+
+
