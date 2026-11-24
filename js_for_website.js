@@ -14,7 +14,7 @@ function openTask(taskNumber) {
 document.getElementById('field_p').addEventListener('input', function() { // для того, чтобы в поле ответов писалось выбранный размер поля
     document.getElementById('p-display').textContent = this.value || 'p';
 });
-
+                       //А зачем ты сюда полез??? Интересно стало????
 
 function not_zero(list) { // функция для очистки нулей слева
     while (list.length > 1 && Math.abs(list.at(0)) < 1e-9) {
