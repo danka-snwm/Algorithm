@@ -122,13 +122,14 @@ function nok(f_x, g_x, f) {
             res[i + j] += f_x[i] * g_x[j];
         }
     }
-
-    let list_nok = [];
+    
     let res_copy = not_zero([...res]);
+    let list_nok = new Array(Math.max(1, res_copy.length - f.length + 1)).fill(0);
 
     while (res_copy.length >= f.length && !(res_copy.length === 1 && res_copy.at(0) === 0)) {
         let coef = res_copy.at(0) / f.at(0);
-        list_nok.push(Number(coef.toFixed(5)));
+        let position = list_nok.length - 1 - (res_copy.length - f.length);
+        list_nok[position] = Number(coef.toFixed(5));
 
         for (let k = 0; k < f.length; k++) {
             res_copy[k] -= coef * f[k];
@@ -139,10 +140,10 @@ function nok(f_x, g_x, f) {
 
     let norm = list_nok.at(0);
     if (norm < 0) {
-        list_nok = list_nok.map(y => y * (-1));
+        list_nok = list_nok.map(y => y * (-1) || 0);
     }
 
-    return list_nok;
+    return not_zero(list_nok);
 }
 
 // Красивое математическое отображение многочлена
